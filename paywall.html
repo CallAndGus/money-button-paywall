@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Money Button Paywall</title>
+  <style>
+    body {
+      width: 50%;
+      margin: 10vh auto;
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    }
+    #unlockable {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 5s;
+    }
+    #unlockable.unlocked {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+  <script>
+    function handleSuccessfulPayment (payment) {
+      unlockContent();
+    }
+    function handleFailedPayment (error) {
+      alert("Sorry, the payment did not process correctly.")
+    }
+    function unlockContent() {
+      document.getElementById("unlockable").classList.toggle("unlocked");
+    }
+  </script>
+</head>
+<body>
+
+<h1>Money Button Paywall</h1>
+
+<!-- Free content -->
+<p>Paywalls allow you to reveal portions of content upon making a payment.</p>
+
+<p><em>Slide the Money Button to learn how this paywall works.</em></p>
+
+<!-- Money Button -->
+<div class="money-button"
+  data-to="bitcoincash:qq9zkxq4pqhm9r7lwgq6sfehdhnx2hsutqncxfhce5"
+  data-amount="1"
+  data-currency="USD"
+  data-label="Unlock"
+  data-client-identifier="7df43d613edf7a516089632bfdfd352a"
+  data-button-id="1539888464998"
+  data-button-data="{}"
+  data-type="buy"
+  data-on-payment="handleSuccessfulPayment"
+  data-on-error="handleFailedPayment"
+  data-dev-mode="false"
+></div>
+
+<!-- Hidden content -->
+<div id="unlockable">
+  <p>Welcome to the secret club.</p>
+  <p>You're free to use the source code in this page.</p>
+  <p>Here's how to get started:</p>
+  <ol>
+    <li>Use 
+    <li>You should make your own Money Button on the <a href="https://www.moneybutton.com/config" target="_blank">Config</a> page to ensure that you have the correct Bitcoin address and Button ID.</li>
+    <li>Then replace the Money Button <code>&lt;div&gt;</code> in the source from this page.</li>
+    <li>Add back in the attributes, <code>data-on-payment</code> and <code>data-on-error</code>:</li>
+  </ol>
+  <pre>
+    data-on-payment="handleSuccessfulPayment"
+    data-on-error="handleFailedPayment"
+  </pre>
+  <p>Here's how this works:</p>
+  <ol>
+    <li>When the Money Button receives a successful payment, it calls <code>handleSuccessfulPayment(payment)</code>.</li>
+    <li>That function in turn calls <code>unlockContent()</code>.</li>
+    <li><code>unlockContent()</code> adds a CSS class called, <code>unlocked</code>, to the <code>unlockable</code> DIV.</li>
+    <li>The <code>unlocked</code> class is defined in CSS to use an animation to transition its opacity.</li>
+  </ol>
+  <blockquote><strong>Note</strong>: that the CSS uses both visibility and opacity properties becasue the opacity is necessary for the animation and the visibility is necessary for screen readers to skip the locked content.</blockquote>
+  <p>Drop me a DM on Twitter @cranaust or Telegram @cranau if you use the code so I can applaud your work.</p>
+</div>
+
+<!-- Money Button script -->
+<script src="https://www.moneybutton.com/moneybutton.js"></script>
+
+</body>
+</html>
